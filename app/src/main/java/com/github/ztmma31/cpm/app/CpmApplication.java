@@ -1,5 +1,6 @@
 package com.github.ztmma31.cpm.app;
 
+import com.github.ztmma31.cpm.app.entities.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
