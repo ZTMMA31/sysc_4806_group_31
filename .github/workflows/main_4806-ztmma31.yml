@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy JAR app to Azure Web App - ZTMMA31
+name: Build and deploy JAR app to Azure Web App - 4806-ztmma31
 
 on:
   push:
@@ -49,14 +49,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9D78AC80833A4437AD5544E44BB4180A }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_EA8B1B082B9748978F1ED8AE823B6E1E }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_96084F00289844F28ADB79F7C4406134 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DFA5919968224CDEB8DA7F0C22869559 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_13A9F96CC7A94FE58F5BA8E5CCFEF0E0 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_FB26EA1894F14759A5D18FE0ACC989A3 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'ZTMMA31'
+          app-name: '4806-ztmma31'
           slot-name: 'Production'
           package: '*.jar'
