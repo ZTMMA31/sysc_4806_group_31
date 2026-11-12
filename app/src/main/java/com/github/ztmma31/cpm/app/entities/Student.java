@@ -1,12 +1,15 @@
-package com.github.ztmma31.cpm.app;
+package com.github.ztmma31.cpm.app.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-public class Professor {
+public class Student {
     private Long id;
     private String username;
     private String password;
+    private CapstoneProject project;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +37,19 @@ public class Professor {
         this.password = password;
     }
 
+    @OneToOne(cascade = CascadeType.ALL)
+    public CapstoneProject getProject() {
+        return project;
+    }
+
+    public void setProject(CapstoneProject project) {
+        this.project = project;
+    }
+
     @Override
     public String toString() {
         return String.format(
-            "Professor: [id=%s, username=%s]", id, username
+            "Student: [id=%s, username=%s]", id, username
         );
     }
 }

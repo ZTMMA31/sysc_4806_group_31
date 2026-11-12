@@ -1,5 +1,9 @@
 package com.github.ztmma31.cpm.app;
 
+import com.github.ztmma31.cpm.app.entities.Professor;
+import com.github.ztmma31.cpm.app.entities.ProfessorRepository;
+import com.github.ztmma31.cpm.app.entities.Student;
+import com.github.ztmma31.cpm.app.entities.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +15,7 @@ public class CpmApplication {
         SpringApplication.run(CpmApplication.class, args);
     }
 
-    /* initial app test
+    // initial app test
     @Bean
     CommandLineRunner clRunner(ProfessorRepository professorRepository, StudentRepository studentRepository) {
         return args -> {
@@ -30,5 +34,4 @@ public class CpmApplication {
             studentRepository.findAll().forEach(student -> System.out.println(student.toString()));
         };
     }
-    */
 }

@@ -1,8 +1,7 @@
-package com.github.ztmma31.cpm.entities;
+package com.github.ztmma31.cpm.app.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /* A 4th year project topic (capstone project) managed by a professor.
@@ -20,10 +19,14 @@ public class CapstoneProject {
     // The description of the 4th year project topic, containing the bulk of the text.
     private String description;
     // Students must be in one of these programs to apply for the project.
+    @Transient
     private List<Program> restrictions;
 
     // The students that have applied for the 4th year project.
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Student> students;
     // The professor managing the project.
+
+    @ManyToOne
     private Professor professor;
 }
