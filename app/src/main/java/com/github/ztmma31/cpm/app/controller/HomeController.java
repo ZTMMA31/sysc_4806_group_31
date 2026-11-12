@@ -21,6 +21,6 @@ public class HomeController {
             return "redirect:/professor/dashboard";
         }
 
-        return "redirect:/student/dashboard";
+return "home";
     }
 }
