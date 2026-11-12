@@ -12,6 +12,7 @@
       th:object="${registrationForm}"
       method="post">
 
+    <!--/* No support for names yet
     <div>
         <label for="name">Full Name</label>
         <input type="text"
@@ -19,12 +20,13 @@
                th:field="*{name}"
                required>
     </div>
+    */-->
 
     <div>
-        <label for="email">Email</label>
-        <input type="email"
-               id="email"
-               th:field="*{email}"
+        <label for="username">Username</label>
+        <input type="text"
+               id="username"
+               th:field="*{username}"
                required>
     </div>
 

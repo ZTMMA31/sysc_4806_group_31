@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head> <meta charset="UTF-8"> <title>Log in</title> </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Login - CPM</title>
+</head>
 <body>
-<h1>4th Year Project Management System</h1>
+
+<h1>Capstone Project Manager</h1>
+
+<p>Register <a th:href="@{/register}">here</a> if you haven't made an account yet.</p>
+
+<h2>Login</h2>
 <p th:if="${param.error}" style ="color:red">Invalid username or password.</p>
 <p th:if="${param.logout}">You have been logged out.</p>
 
 <form th:action="@{/login}" method="post">
     <label>Username <input type="text" name="username" required></label><br>
     <label>Password <input type="password" name="password" required></label><br>
-    <button type="submit">Log in</button>
+    <button type="submit">Login</button>
 </form>
 </body>
 </html>
