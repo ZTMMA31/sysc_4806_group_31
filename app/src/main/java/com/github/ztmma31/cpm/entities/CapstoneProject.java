@@ -2,7 +2,6 @@ package com.github.ztmma31.cpm.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /* A 4th year project topic (capstone project) managed by a professor.
