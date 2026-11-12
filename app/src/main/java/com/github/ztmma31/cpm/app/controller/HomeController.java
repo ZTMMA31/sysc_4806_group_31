@@ -2,25 +2,26 @@ package com.github.ztmma31.cpm.app.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
 
     @GetMapping({"/","/home"})
-    public String home(Authentication authentication) {
+    public String home(
+        Model model,
+        Authentication auth
+    ) {
 
-        if (authentication == null || !authentication.isAuthenticated()) {
+        if (auth == null || !auth.isAuthenticated()) {
             return "redirect:/login";
         }
 
-        boolean isProfessor = authentication.getAuthorities().stream()
-            .anyMatch(a -> a.getAuthority().equals("ROLE_PROFESSOR"));
+        String role = auth.getAuthorities().iterator().next().getAuthority().replace("ROLE_", "");
+        model.addAttribute("name", auth.getName());
+        model.addAttribute("role", role);
 
-        if (isProfessor) {
-            return "redirect:/professor/dashboard";
-        }
-
-return "home";
+        return "home";
     }
 }
