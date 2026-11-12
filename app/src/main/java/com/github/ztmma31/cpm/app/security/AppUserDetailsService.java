@@ -1,9 +1,9 @@
 package com.github.ztmma31.cpm.app.security;
 
-import com.github.ztmma31.cpm.app.Professor;
-import com.github.ztmma31.cpm.app.ProfessorRepository;
-import com.github.ztmma31.cpm.app.Student;
-import com.github.ztmma31.cpm.app.StudentRepository;
+import com.github.ztmma31.cpm.app.entities.Student;
+import com.github.ztmma31.cpm.app.entities.Professor;
+import com.github.ztmma31.cpm.app.entities.StudentRepository;
+import com.github.ztmma31.cpm.app.entities.ProfessorRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

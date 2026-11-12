@@ -1,9 +1,9 @@
 package com.github.ztmma31.cpm.app.config;
 
-import com.github.ztmma31.cpm.app.Professor;
-import com.github.ztmma31.cpm.app.ProfessorRepository;
-import com.github.ztmma31.cpm.app.Student;
-import com.github.ztmma31.cpm.app.StudentRepository;
+import com.github.ztmma31.cpm.app.entities.Student;
+import com.github.ztmma31.cpm.app.entities.Professor;
+import com.github.ztmma31.cpm.app.entities.StudentRepository;
+import com.github.ztmma31.cpm.app.entities.ProfessorRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

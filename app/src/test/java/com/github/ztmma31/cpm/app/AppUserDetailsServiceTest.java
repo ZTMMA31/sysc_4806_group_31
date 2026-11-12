@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.github.ztmma31.cpm.app.entities.Student;
+import com.github.ztmma31.cpm.app.entities.Professor;
+import com.github.ztmma31.cpm.app.entities.StudentRepository;
+import com.github.ztmma31.cpm.app.entities.ProfessorRepository;
+
 import java.util.Optional;
 
 import static com.google.common.truth.Truth.assertThat;
