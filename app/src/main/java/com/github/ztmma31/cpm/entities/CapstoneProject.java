@@ -1,4 +1,4 @@
-package cpm.entities;
+package com.github.ztmma31.cpm.entities;
 
 import jakarta.persistence.*;
 
