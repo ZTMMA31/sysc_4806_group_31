@@ -21,7 +21,7 @@ class AppUserDetailsServiceTest {
 
     private final StudentRepository students = mock(StudentRepository.class);
     private final ProfessorRepository professors = mock(ProfessorRepository.class);
-    private final AppUserDetailsService service = new com.github.ztmma31.cpm.app.security.AppUserDetailsService(students, professors);
+    private final AppUserDetailsService service = new AppUserDetailsService(students, professors);
 
     @Test
     void studentLoadsWithStudentRole() {
