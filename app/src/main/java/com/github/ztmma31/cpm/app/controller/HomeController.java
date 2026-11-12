@@ -1,4 +1,3 @@
-
 package com.github.ztmma31.cpm.app.controller;
 
 import org.springframework.security.core.Authentication;
@@ -8,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping({"/","/home"})
     public String home(Authentication authentication) {
 
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -22,8 +21,6 @@ public class HomeController {
             return "redirect:/professor/dashboard";
         }
 
-        return "redirect:/student/dashboard";
+return "home";
     }
 }
-
-
