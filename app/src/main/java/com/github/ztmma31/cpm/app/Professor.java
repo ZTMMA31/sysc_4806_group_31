@@ -1,22 +1,20 @@
 package com.github.ztmma31.cpm.app;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Professor {
-    private int id;
+    private Long id;
     private String username;
     private String password;
 
     @Id
-    @GeneratedValue
-    public int getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
