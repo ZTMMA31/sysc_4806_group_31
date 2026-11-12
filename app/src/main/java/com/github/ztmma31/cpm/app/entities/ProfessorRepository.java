@@ -1,4 +1,4 @@
-package com.github.ztmma31.cpm.app;
+package com.github.ztmma31.cpm.app.entities;
 
 import org.springframework.data.repository.CrudRepository;
 
