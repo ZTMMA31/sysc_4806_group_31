@@ -12,6 +12,11 @@ indent_size = 4
 
 [*.java]
 indent_size = 4
+# The following are to configure IntelliJ to use single-class imports rather than wildcard imports
+ij_java_use_single_class_imports = true
+ij_java_class_count_to_use_import_on_demand = 999
+ij_java_names_count_to_use_import_on_demand = 999
+ij_java_packages_to_use_import_on_demand = unset
 
 [*.{yml,yaml,json,xml}]
 indent_size = 2
