@@ -1,0 +1,83 @@
+classDiagram
+    class Professor {
+        -Long id
+        -String username
+        -String password
+        -List~CapstoneProject~ projects
+        +addProject(CapstoneProject)
+    }
+
+    class CapstoneProject {
+        -Long id
+        -String title
+        -String description
+        -List~Program~ restrictions
+        -List~Student~ students
+        -Professor professor
+    }
+
+    class Student {
+        -Long id
+        -String username
+        -String password
+        -CapstoneProject project
+    }
+
+    class Program
+
+    class StudentRepository {
+        <<interface>>
+        +findById(int) Student
+        +findByUsername(String) Optional~Student~
+    }
+
+    class ProfessorRepository {
+        <<interface>>
+        +findById(int) Professor
+        +findByUsername(String) Optional~Professor~
+    }
+
+    class RegistrationForm {
+        -String username
+        -String password
+        -boolean professor
+    }
+
+    class RegistrationController
+    class LoginController
+    class HomeController
+    class AppUserDetailsService
+    class DataSeeder
+    class SecurityConfig
+    class CpmApplication
+
+    class CrudRepository {
+        <<interface>>
+    }
+
+    class UserDetailsService {
+        <<interface>>
+    }
+
+    Professor "1" --> "0..*" CapstoneProject : projects / professor
+    CapstoneProject "1" --> "0..*" Student : students
+    Student "0..*" --> "0..1" CapstoneProject : project (ManyToOne)
+    CapstoneProject ..> Program : transient restrictions
+
+    StudentRepository ..|> CrudRepository
+    ProfessorRepository ..|> CrudRepository
+    StudentRepository ..> Student
+    ProfessorRepository ..> Professor
+
+    AppUserDetailsService ..|> UserDetailsService
+    AppUserDetailsService ..> StudentRepository
+    AppUserDetailsService ..> ProfessorRepository
+
+    RegistrationController ..> RegistrationForm
+    RegistrationController ..> StudentRepository
+    RegistrationController ..> ProfessorRepository
+    RegistrationController ..> Student
+    RegistrationController ..> Professor
+
+    DataSeeder ..> StudentRepository
+    DataSeeder ..> ProfessorRepository
