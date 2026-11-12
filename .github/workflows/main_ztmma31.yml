@@ -31,9 +31,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: |
-              ${{ github.workspace }}\app\build\libs\*.jar
-              !${{ github.workspace }}/build/libs/*-plain.jar
+          path: '${{ github.workspace }}\app\build\libs\app-*-SNAPSHOT.jar'
 
   deploy:
     runs-on: windows-latest
