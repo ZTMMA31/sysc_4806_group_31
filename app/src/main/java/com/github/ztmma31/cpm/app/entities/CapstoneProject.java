@@ -23,11 +23,12 @@ public class CapstoneProject {
     private List<Program> restrictions;
 
     // The students that have applied for the 4th year project.
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<Student> students;
     // The professor managing the project.
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
 
     public long getId()
