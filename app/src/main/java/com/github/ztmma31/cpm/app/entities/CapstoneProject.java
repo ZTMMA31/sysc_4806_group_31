@@ -12,7 +12,7 @@ Professors can create, delete, and archive project topics.
 @Entity
 public class CapstoneProject {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     // The title of the 4th year project. Likely only a few words.
     private String title;
