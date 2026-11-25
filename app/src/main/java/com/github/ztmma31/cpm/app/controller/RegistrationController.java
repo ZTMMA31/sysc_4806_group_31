@@ -29,6 +29,7 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String showRegistration(Model model) {
+        System.out.println("RegistrationController GET on /register");
 
         model.addAttribute(
             "registrationForm",
@@ -41,9 +42,11 @@ public class RegistrationController {
     @PostMapping("/register")
     public String processRegistration(
         @ModelAttribute("registrationForm") RegistrationForm form) {
-
         String username = form.getUsername();
         String encodedPassword = passwordEncoder.encode(form.getPassword());
+
+        System.out.println("RegistrationController POST on /register");
+        System.out.println("Username: " + username);
 
         // FIXME: reject if the username is already registered
         if (form.isProfessor()) {

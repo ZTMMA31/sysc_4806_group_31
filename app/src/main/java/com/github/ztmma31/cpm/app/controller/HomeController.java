@@ -13,8 +13,11 @@ public class HomeController {
         Model model,
         Authentication auth
     ) {
+        System.out.println("HomeController GET on /, /home");
 
         if (auth == null || !auth.isAuthenticated()) {
+            System.out.println("HomeController REDIRECT to /login");
+            
             return "redirect:/login";
         }
 
