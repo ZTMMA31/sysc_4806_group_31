@@ -11,6 +11,7 @@
 
 # Zane: annoying because the content changes per user
 /misc.xml
+/vcs.xml
 
 # Teddy: I honestly don't think this is important
 /.name

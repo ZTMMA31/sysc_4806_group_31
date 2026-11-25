@@ -1,18 +1,23 @@
 package com.github.ztmma31.cpm.app.entities;
 
-import jakarta.persistence.*;
-
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Student {
-    private Long id;
-    private String username;
-    private String password;
-    private CapstoneProject project;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String username;
+    private String password;
+
+    @ManyToOne
+    private CapstoneProject project;
+
     public Long getId() {
         return id;
     }
@@ -37,7 +42,6 @@ public class Student {
         this.password = password;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
     public CapstoneProject getProject() {
         return project;
     }
