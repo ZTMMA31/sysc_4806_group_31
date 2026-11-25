@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head> <meta charset="UTF-8"> <title>Home</title> </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
 <body>
+
 <h1>Welcome, <span th:text="${name}">Name</span></h1>
+
 <p>Your role: <span th:text="${role}">ROLE</span></p>
-<form th:action="@{/logout}" method="post"><button type="submit">Log out</button></form>
+
+<div th:if="${role == 'PROF'}">
+    <h2>Professor Dashboard</h2>
+
+    <a th:href="@{/professor/projects}">My Projects</a>
+
+    <a th:href="@{/professor/projects/new}">Create Project</a>
+</div>
+
+<div th:if="${role == 'STUDENT'}">
+    <h2>Student Dashboard</h2>
+</div>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Log out</button>
+</form>
+
 </body>
 </html>
