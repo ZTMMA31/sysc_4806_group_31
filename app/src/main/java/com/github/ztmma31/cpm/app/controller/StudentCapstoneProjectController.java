@@ -1,14 +1,11 @@
 package com.github.ztmma31.cpm.app.controller;
 
-import com.github.ztmma31.cpm.app.entities.StudentRepository;
-import com.github.ztmma31.cpm.app.service.CapstoneProjectService;
 import com.github.ztmma31.cpm.app.service.StudentCapstoneProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -17,7 +14,7 @@ import java.security.Principal;
 @RequestMapping("/student/project")
 public class StudentCapstoneProjectController {
     private final StudentCapstoneProjectService projectService;
-    private static final Logger logger = LoggerFactory.getLogger(CapstoneProjectController.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudentCapstoneProjectController.class);
 
     public StudentCapstoneProjectController(
         StudentCapstoneProjectService projectService) {

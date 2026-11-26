@@ -1,11 +1,11 @@
 package com.github.ztmma31.cpm.app.service;
 
 import com.github.ztmma31.cpm.app.entities.CapstoneProject;
-import com.github.ztmma31.cpm.app.entities.CapstoneProjectRepository;
-import com.github.ztmma31.cpm.app.entities.ProfessorRepository;
 import com.github.ztmma31.cpm.app.entities.Student;
 import com.github.ztmma31.cpm.app.entities.StudentRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StudentCapstoneProjectService {
     private final StudentRepository studentRepository;
 
