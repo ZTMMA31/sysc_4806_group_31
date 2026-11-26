@@ -11,12 +11,15 @@ public class CapstoneProjectService {
 
     private final CapstoneProjectRepository projectRepository;
     private final ProfessorRepository professorRepository;
+    private final StudentRepository studentRepository;
 
     public CapstoneProjectService(
         CapstoneProjectRepository projectRepository,
-        ProfessorRepository professorRepository) {
+        ProfessorRepository professorRepository,
+        StudentRepository studentRepository) {
         this.projectRepository = projectRepository;
         this.professorRepository = professorRepository;
+        this.studentRepository = studentRepository;
     }
 
 
