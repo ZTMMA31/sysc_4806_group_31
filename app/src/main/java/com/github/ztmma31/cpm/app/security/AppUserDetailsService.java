@@ -27,13 +27,17 @@ public class AppUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Student> student = students.findByUsername(username);
+
         if (student.isPresent()) {
             return build(student.get().getUsername(), student.get().getPassword(), "STUDENT");
         }
+
         Optional<Professor> prof = professors.findByUsername(username);
+
         if (prof.isPresent()) {
             return build(prof.get().getUsername(), prof.get().getPassword(), "PROF");
         }
+        
         throw new UsernameNotFoundException("Invalid username or password");
     }
 

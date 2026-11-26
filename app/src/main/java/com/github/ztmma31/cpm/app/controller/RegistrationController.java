@@ -9,13 +9,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class RegistrationController {
-
     private final StudentRepository studentRepository;
     private final ProfessorRepository professorRepository;
     private final PasswordEncoder passwordEncoder;
+    private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
     public RegistrationController(
         StudentRepository studentRepository,
@@ -29,6 +31,7 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String showRegistration(Model model) {
+        logger.info("RegistrationController GET on /register");
 
         model.addAttribute(
             "registrationForm",
@@ -41,9 +44,12 @@ public class RegistrationController {
     @PostMapping("/register")
     public String processRegistration(
         @ModelAttribute("registrationForm") RegistrationForm form) {
-
         String username = form.getUsername();
         String encodedPassword = passwordEncoder.encode(form.getPassword());
+
+        logger.info("RegistrationController POST on /register");
+        logger.info("    Username: {}", username);
+        logger.info("    Role: {}", form.isProfessor() ? "PROFESSOR" : "STUDENT");
 
         // FIXME: reject if the username is already registered
         if (form.isProfessor()) {
@@ -59,6 +65,9 @@ public class RegistrationController {
 
             studentRepository.save(student);
         }
+
+        logger.info("RegistrationController STATUS saved new user to database");
+        logger.info("RegistrationController REDIRECT to /login");
 
         return "redirect:/login";
     }
