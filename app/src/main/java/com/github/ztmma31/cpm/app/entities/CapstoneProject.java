@@ -1,6 +1,15 @@
 package com.github.ztmma31.cpm.app.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -9,6 +18,8 @@ The professor can give a title and description and select program restrictions
 for students. Students can search for and join projects that are not full.
 Professors can create, delete, and archive project topics.
  */
+@Getter
+@Setter
 @Entity
 public class CapstoneProject {
     @Id
@@ -31,44 +42,9 @@ public class CapstoneProject {
     @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
 
-    public long getId()
-    {
-        return id;
-    }
-
-    public String getTitle()
-    {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Program> getRestrictions() {
-        return restrictions;
-    }
-
-    public void setRestrictions(List<Program> restrictions) {
-        this.restrictions = restrictions;
-    }
-
     public void addRestrictions(List<Program> newRestrictions)
     {
-        for(Program restriction  :newRestrictions){
-            if (!restrictions.contains(restriction))
-            {
-                restrictions.add(restriction);
-            }
-        }
+        restrictions.addAll(newRestrictions);
     }
 
     public void removeRestrictions(List<Program> toRemove)
@@ -76,10 +52,6 @@ public class CapstoneProject {
         for(Program restriction  :toRemove){
             restrictions.remove(restriction);
         }
-    }
-
-    public List<Student> getStudents() {
-        return students;
     }
 
     public void addStudent(Student student)
@@ -93,13 +65,5 @@ public class CapstoneProject {
     public void removeStudent(Student student)
     {
         students.remove(student);
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
     }
 }
