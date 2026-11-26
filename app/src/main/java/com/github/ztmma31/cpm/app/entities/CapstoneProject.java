@@ -44,7 +44,12 @@ public class CapstoneProject {
 
     public void addRestrictions(List<Program> newRestrictions)
     {
-        restrictions.addAll(newRestrictions);
+        for(Program restriction  :newRestrictions){
+            if (!restrictions.contains(restriction))
+            {
+                restrictions.add(restriction);
+            }
+        }
     }
 
     public void removeRestrictions(List<Program> toRemove)
