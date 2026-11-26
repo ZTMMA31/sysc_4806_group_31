@@ -18,13 +18,94 @@ Testing is done automatically on PRs and the main branch with `.github/workflows
 ### Deployment
 The system is deployed automatically from the main branch to Azure with the `.github/workflows/main_4806-ztmma31.yml` workflow.
 
+**Deployment URL:** [https://4806-ztmma31-bdb7grbqemd6c5es.mexicocentral-01.azurewebsites.net/](https://4806-ztmma31-bdb7grbqemd6c5es.mexicocentral-01.azurewebsites.net/)
+
 ### IntelliJ IDEA Recommendations
 - Set `Settings > Build, Execution, Deployment` > `Build Tools` > `Gradle` > `Distribution` to `Wrapper` instead of `Local installation`
 - Set `Settings > Build, Execution, Deployment` > `Build Tools` > `Gradle` > `Gradle JVM` to a JVM/JDK that is Java 17 or higher
 - Ensure the EditorConfig plugin is enabled
 
 ## Project Structure
-
+```
+ZTMMA31
+├─ .github
+│  └─ workflows
+│     ├─ build_and_test.yml
+│     └─ main_4806-ztmma31.yml
+├─ CONTRIBUTING.md
+├─ README.md
+├─ app
+│  ├─ build.gradle.kts
+│  └─ src
+│     ├─ main
+│     │  ├─ java
+|     |  |  └─ com.github.ztmma31.cpm.app
+│     │  │     ├─ CpmApplication.java
+│     │  │     ├─ config
+│     │  │     │  ├─ DataSeeder.java
+│     │  │     │  └─ SecurityConfig.java
+│     │  │     ├─ controller
+│     │  │     │  ├─ CapstoneProjectController.java
+│     │  │     │  ├─ HomeController.java
+│     │  │     │  ├─ LoginController.java
+│     │  │     │  └─ RegistrationController.java
+│     │  │     ├─ dto
+│     │  │     │  └─ RegistrationForm.java
+│     │  │     ├─ entities
+│     │  │     │  ├─ CapstoneProject.java
+│     │  │     │  ├─ CapstoneProjectRepository.java
+│     │  │     │  ├─ Professor.java
+│     │  │     │  ├─ ProfessorRepository.java
+│     │  │     │  ├─ Program.java
+│     │  │     │  ├─ Student.java
+│     │  │     │  └─ StudentRepository.java
+│     │  │     ├─ security
+│     │  │     │  ├─ AppUserDetailsService.java
+│     │  │     │  └─ CurrentUserService.java
+│     │  │     └─ service
+│     │  │        └─ CapstoneProjectService.java
+│     │  └─ resources
+│     │     ├─ application.yaml
+│     │     └─ templates
+│     │        ├─ home.html
+│     │        ├─ login.html
+│     │        ├─ professor
+│     │        │  └─ projects
+│     │        │     ├─ create.html
+│     │        │     ├─ details.html
+│     │        │     ├─ edit.html
+│     │        │     └─ index.html
+│     │        └─ registration.html
+│     └─ test
+│        ├─ java
+│        │  └─ com.github.ztmma31.cpm.app
+│        │     ├─ AppUserDetailsServiceTest.java
+│        │     ├─ CpmApplicationTest.java
+│        │     ├─ controller
+│        │     │  └─ RegistrationControllerTest.java
+│        │     ├─ entities
+│        │     │  ├─ CapstoneProjectTest.java
+│        │     │  ├─ ProfessorTest.java
+│        │     │  └─ StudentTest.java
+│        │     ├─ security
+│        │     │  └─ CurrentUserServiceTest.java
+│        │     └─ service
+│        │        └─ CapstoneProjectServiceTest.java
+│        └─ resources
+│           └─ application.yaml
+├─ architecture
+│  ├─ class_diagram.mmd
+│  └─ database_schema.png
+├─ gradle.properties
+├─ gradle
+│  ├─ libs.versions.toml
+│  └─ wrapper
+│     ├─ gradle-wrapper.jar
+│     └─ gradle-wrapper.properties
+├─ gradlew
+├─ gradlew.bat
+└─ settings.gradle.kts
+```
 ## Releases / Milestones
 
 ## Authors
