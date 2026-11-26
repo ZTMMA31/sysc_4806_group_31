@@ -25,7 +25,7 @@ public class CurrentUserServiceTest {
     private final ProfessorRepository professors = mock(ProfessorRepository.class);
     private final CurrentUserService service = new CurrentUserService(students, professors);
 
-    private static Authentication login (String username, String role) {
+    private static Authentication login(String username, String role) {
         return new UsernamePasswordAuthenticationToken(
             username, null, List.of(new SimpleGrantedAuthority(role)));
     }
