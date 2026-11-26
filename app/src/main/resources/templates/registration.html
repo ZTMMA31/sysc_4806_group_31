@@ -28,6 +28,8 @@
                id="username"
                th:field="*{username}"
                required>
+        <p th:if="${#fields.hasErrors('username')}"
+           th:errors="*{username}" role="alert"></p>
     </div>
 
     <div>
@@ -36,6 +38,8 @@
                id="password"
                th:field="*{password}"
                required>
+        <p th:if="${#fields.hasErrors('password')}"
+           th:errors="*{password}" role="alert"></p>
     </div>
 
     <div>
