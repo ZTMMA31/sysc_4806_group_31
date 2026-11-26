@@ -13,14 +13,24 @@
 <div th:if="${role == 'PROF'}">
     <h2>Professor Dashboard</h2>
 
-    <a th:href="@{/professor/projects}">My Projects</a>
+    <a th:href="@{/professor/projects}">
+        <button>
+            My Projects
+        </button>
+    </a>
 
-    <a th:href="@{/professor/projects/new}">Create Project</a>
+    <a th:href="@{/professor/projects/new}">
+        <button>
+            Create Project
+        </button>
+    </a>
 </div>
 
 <div th:if="${role == 'STUDENT'}">
     <h2>Student Dashboard</h2>
 </div>
+
+<br>
 
 <form th:action="@{/logout}" method="post">
     <button type="submit">Log out</button>

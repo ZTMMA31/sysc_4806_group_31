@@ -5,42 +5,53 @@
     <title>Project Details</title>
 </head>
 <body>
-
-<h1 th:text="${project.title}">Project Title</h1>
-
-<h2>Description</h2>
-<p th:text="${project.description}"></p>
-
-<h2>Professor</h2>
-<p th:text="${project.professor.username}"></p>
-
-<h2>Students</h2>
-<table>
-    <tr>
-        <th>Username</th>
-        <th>ID</th>
-    </tr>
-    <tr th:each="student : ${project.students}">
-        <td th:text="${student.username}"></td>
-        <td th:text="${student.id}"></td>
-    </tr>
-</table>
-
-<a th:href="@{/professor/projects/{id}/edit(id=${project.id})}">
-    <button>Edit Project</button>
-</a>
-
-<form th:action="@{/professor/projects/{id}/delete(id=${project.id})}"
-      method="post"
-      onsubmit="return confirm('Delete this project?');">
-
-    <button type="submit">Delete Project</button>
-
-</form>
-
-<a th:href="@{/professor/projects}">
-    <button>Back to Projects</button>
-</a>
-
+    <h1 th:text="${project.title}">
+        Project Title
+    </h1>
+    <h2>
+        Description
+    </h2>
+    <p th:text="${project.description}"></p>
+    <h2>
+        Professor
+    </h2>
+    <p th:text="${project.professor.username}"></p>
+    <h2>
+        Students
+    </h2>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>ID</th>
+        </tr>
+        <tr th:each="student : ${project.students}">
+            <td th:text="${student.username}"></td>
+            <td th:text="${student.id}"></td>
+        </tr>
+    </table>
+    <h2>
+        Actions
+    </h2>
+    <a th:href="@{/professor/projects/{id}/edit(id=${project.id})}">
+        <button>Edit Project</button>
+    </a>
+    <br><br>
+    <button>
+        Manage Students
+    </button>
+    <br><br>
+    <form th:action="@{/professor/projects/{id}/delete(id=${project.id})}"
+        method="post"
+        onsubmit="return confirm('Delete this project?');">
+        <button type="submit">
+            Delete Project
+        </button>
+    </form>
+    <br>
+    <a th:href="@{/professor/projects}">
+        <button>
+            Back to Projects
+        </button>
+    </a>
 </body>
 </html>

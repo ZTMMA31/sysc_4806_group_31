@@ -5,38 +5,51 @@
     <title>My Projects</title>
 </head>
 <body>
-
-<h1>My Projects</h1>
-
-<a th:href="@{/home}">Home</a>
-<a th:href="@{/professor/projects/new}">Create Project</a>
-
-<p th:if="${#lists.isEmpty(projects)}">
-    You have no projects.
-</p>
-
-<table>
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="project : ${projects}">
-        <td th:text="${project.title}"></td>
-        <td>
-            <a th:href="@{/professor/projects/{id}(id=${project.id})}">
-                View
-            </a>
-
-            <a th:href="@{/professor/projects/{id}/edit(id=${project.id})}">
-                Edit
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
+    <h1>
+        My Projects
+    </h1>
+    <a th:href="@{/home}">
+        <button>
+            Home
+        </button>
+    </a>
+    <a th:href="@{/professor/projects/new}">
+        <button>
+            Create Project
+        </button>
+    </a>
+    <p th:if="${#lists.isEmpty(projects)}">
+        You have no projects.
+    </p>
+    <br><br>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="project : ${projects}">
+                <td th:text="${project.title}"></td>
+                <td>
+                    <a th:href="@{/professor/projects/{id}(id=${project.id})}">
+                        <button>
+                            View
+                        </button>
+                    </a>
+                    <a th:href="@{/professor/projects/{id}/edit(id=${project.id})}">
+                        <button>
+                            Edit
+                        </button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
