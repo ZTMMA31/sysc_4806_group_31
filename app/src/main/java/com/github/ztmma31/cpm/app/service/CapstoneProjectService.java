@@ -89,12 +89,9 @@ public class CapstoneProjectService {
     public void removeStudentFromProject(Long projectId, int studentId, String professorUsername) {
         CapstoneProject project = getProject(projectId, professorUsername);
 
-        Student student = studentRepository.findById(studentId);
-        
-        if (student == null) {
-            throw new NoSuchElementException("Student not found");
-        }
-            
+        Student student = studentRepository.findById(studentId)
+            .orElseThrow(() -> new NoSuchElementException("Student not found"));
+
         project.getStudents().remove(student);
         projectRepository.save(project);
 
