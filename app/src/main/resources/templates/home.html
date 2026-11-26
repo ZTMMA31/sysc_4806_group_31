@@ -20,6 +20,10 @@
 
 <div th:if="${role == 'STUDENT'}">
     <h2>Student Dashboard</h2>
+
+    <a th:href="@{/student/project}">My Project</a>
+
+    <a th:href="@{/student/search}">Project Search</a>
 </div>
 
 <form th:action="@{/logout}" method="post">
