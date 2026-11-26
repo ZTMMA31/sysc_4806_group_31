@@ -28,6 +28,54 @@
                 id="username"
                 th:field="*{username}"
                 required>
+
+            <p th:if="${#fields.hasErrors('username')}"
+               th:errors="*{username}" role="alert"></p>
+        </div>
+        <br>
+        <div>
+            <label for="password">
+                Password
+            </label>
+            <input type="password"
+                id="password"
+                th:field="*{password}"
+                required>
+
+            <p th:if="${#fields.hasErrors('password')}"
+               th:errors="*{password}" role="alert"></p>
+        </div>
+        <br>
+        <div>
+            <label for="professor">
+                Professor
+            </label>
+            <input type="checkbox"
+                id="professor"
+                th:field="*{professor}"/>
+    <h1>
+        Create an Account
+    </h1>
+    <form th:action="@{/register}"
+        th:object="${registrationForm}"
+        method="post">
+        <!--/* No support for names yet
+        <div>
+            <label for="name">Full Name</label>
+            <input type="text"
+                id="name"
+                th:field="*{name}"
+                required>
+        </div>
+        */-->
+        <div>
+            <label for="username">
+                Username
+            </label>
+            <input type="text"
+                id="username"
+                th:field="*{username}"
+                required>
         </div>
         <br>
         <div>

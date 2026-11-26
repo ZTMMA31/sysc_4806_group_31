@@ -5,9 +5,12 @@ import com.github.ztmma31.cpm.app.entities.Professor;
 import com.github.ztmma31.cpm.app.entities.ProfessorRepository;
 import com.github.ztmma31.cpm.app.entities.Student;
 import com.github.ztmma31.cpm.app.entities.StudentRepository;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,15 +46,28 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String processRegistration(
-        @ModelAttribute("registrationForm") RegistrationForm form) {
+        @Valid @ModelAttribute("registrationForm") RegistrationForm form,
+        BindingResult bindingResult,
+        HttpServletResponse response) {
         String username = form.getUsername();
-        String encodedPassword = passwordEncoder.encode(form.getPassword());
 
         logger.info("RegistrationController POST on /register");
         logger.info("    Username: {}", username);
         logger.info("    Role: {}", form.isProfessor() ? "PROFESSOR" : "STUDENT");
 
-        // FIXME: reject if the username is already registered
+        if (bindingResult.hasErrors()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return "registration";
+        }
+
+        if (anyUserExistsWithUsername(username)) {
+            form.setPassword("");
+            bindingResult.rejectValue("username", "duplicateUsername", "Username is already registered.");
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            return "registration";
+        }
+
+        String encodedPassword = passwordEncoder.encode(form.getPassword());
         if (form.isProfessor()) {
             Professor professor = new Professor();
             professor.setUsername(username);
@@ -70,6 +86,11 @@ public class RegistrationController {
         logger.info("RegistrationController REDIRECT to /login");
 
         return "redirect:/login";
+    }
+
+    private boolean anyUserExistsWithUsername(String username) {
+        return studentRepository.findByUsername(username).isPresent() ||
+               professorRepository.findByUsername(username).isPresent();
     }
 
 }
