@@ -7,9 +7,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @Entity
 public class Student {
 
@@ -17,15 +19,15 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+
+    @ToString.Exclude
     private String password;
 
+    /// The project that this student is registered to.
     @ManyToOne
     private CapstoneProject project;
 
-    @Override
-    public String toString() {
-        return String.format(
-            "Student: [id=%s, username=%s]", id, username
-        );
-    }
+    /// The project that this student has applied to, if any.
+    @ManyToOne
+    private CapstoneProject appliedProject;
 }
