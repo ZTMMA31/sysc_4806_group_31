@@ -6,9 +6,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Configuration
 public class SecurityConfig {
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -17,8 +20,8 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/register", "/error").permitAll()
                 .anyRequest().authenticated())
             .exceptionHandling(exception -> exception.authenticationEntryPoint((request, response, authException) -> {
-                System.out.println("SecurityConfig STATUS unauthorized access attempt to " + request.getRequestURI());
-                System.out.println("SecurityConfig REDIRECT to /login");
+                logger.warn("SecurityConfig STATUS unauthorized access attempt to {}", request.getRequestURI());
+                logger.info("SecurityConfig REDIRECT to /login");
                 response.sendRedirect("/login");
             }))
             .formLogin(form -> form
