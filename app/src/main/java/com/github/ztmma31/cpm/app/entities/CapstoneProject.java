@@ -23,7 +23,7 @@ public class CapstoneProject {
     private List<Program> restrictions;
 
     // The students that have applied for the 4th year project.
-    @OneToMany
+    @OneToMany(mappedBy = "project")
     private List<Student> students;
     // The professor managing the project.
 
