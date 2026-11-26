@@ -32,4 +32,10 @@ public class Student {
     /// The project that this student has applied to, if any.
     @ManyToOne
     private CapstoneProject appliedProject;
+
+    public void removeProject() {
+        if (this.project != null) {
+            this.project = null;
+        }
+    }
 }
