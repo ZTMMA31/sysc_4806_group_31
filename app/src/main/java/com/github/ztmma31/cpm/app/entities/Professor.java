@@ -37,7 +37,7 @@ public class Professor {
         this.password = password;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
     public List<CapstoneProject> getProjects() {
         return projects;
     }
