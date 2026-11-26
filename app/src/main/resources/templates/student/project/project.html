@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Project Details</title>
@@ -12,6 +12,9 @@
 <div th:unless="${project == null}">
     <h1 th:text="${project.title}">Project Title</h1>
 
+    <h2>Status</h2>
+    <p>Registered</p>
+
     <h2>Description</h2>
     <p th:text="${project.description}"></p>
 
@@ -21,6 +24,6 @@
 
 <a th:href="@{/home}">Home</a>
 
-<a th:href="@{/student/search}">Project Search</a>
+<a th:href="@{/student/project/search}">Project Search</a>
 </body>
 </html>

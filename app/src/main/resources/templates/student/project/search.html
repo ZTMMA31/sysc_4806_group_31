@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Projects</title>
+</head>
+<body>
+<h1>Available Projects</h1>
+
+<a th:href="@{/home}">Home</a>
+<a th:href="@{/student/project}">My Project</a>
+
+<!-- Some possible statuses at the top of the page  -->
+<p th:if="${#lists.isEmpty(projects)}">There are no available projects.</p>
+<p th:if="${project != null}">You are already registered in a project.</p>
+
+<!-- For each available project -->
+<section th:each="availableProject : ${projects}">
+
+    <!-- Information -->
+    <h2 th:text="${availableProject.title}">Project Title</h2>
+    <p th:text="${availableProject.description}">Project Description</p>
+    <p>
+        Professor:
+        <span th:text="${availableProject.professor.username}">Professor</span>
+    </p>
+
+    <!-- Join button -->
+    <form th:if="${project == null}"
+          th:action="@{/student/project/search/{id}/join(id=${availableProject.id})}"
+          method="post">
+        <button type="submit">Join Project</button>
+    </form>
+</section>
+
+</body>
+</html>
