@@ -65,7 +65,6 @@ public class StudentCapstoneProjectServiceTest {
     @Test
     void throwWhenStudentNotFound()
     {
-        when(student.getUsername()).thenReturn("student1");
         when(studentRepository.findByUsername("student1")).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> service.GetProject(student.getUsername()));
     }
