@@ -19,21 +19,29 @@
     <h2>
         Students
     </h2>
-    <table>
+    <p th:if="${#lists.isEmpty(project.students)}">
+        No students are currently enrolled in this project.
+    <table th:if="${#lists.isEmpty(project.students)} == false">
         <tr>
-            <th>Username</th>
-            <th>ID</th>
+            <th>
+                Student ID
+            </th>
+            <th>
+                Username
+            </th>
         </tr>
         <tr th:each="student : ${project.students}">
-            <td th:text="${student.username}"></td>
             <td th:text="${student.id}"></td>
+            <td th:text="${student.username}"></td>
         </tr>
     </table>
     <h2>
         Actions
     </h2>
     <a th:href="@{/professor/projects/{id}/edit(id=${project.id})}">
-        <button>Edit Project</button>
+        <button>
+            Edit Project
+        </button>
     </a>
     <br><br>
     <button>
