@@ -1,36 +1,23 @@
 package com.github.ztmma31.cpm.app.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class RegistrationForm {
 
+    @NotBlank
     private String username;
+
+    @NotBlank
     private String password;
+
     private boolean professor;
 
     public RegistrationForm() {
     }
 
-    public boolean isProfessor(){
-        return professor;
-    }
-
-    public void setProfessor(boolean professor){
-        this.professor = professor;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String email) {
-        this.username = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
 
