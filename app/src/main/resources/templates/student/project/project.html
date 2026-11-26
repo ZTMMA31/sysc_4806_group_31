@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Details</title>
+</head>
+<body>
+<div th:if="${project == null}">
+    You are not registered in a project.
+</div>
+
+<div th:unless="${project == null}">
+    <h1 th:text="${project.title}">Project Title</h1>
+
+    <h2>Status</h2>
+    <p>Registered</p>
+
+    <h2>Description</h2>
+    <p th:text="${project.description}"></p>
+
+    <h2>Professor</h2>
+    <p th:text="${project.professor.username}"></p>
+</div>
+
+<a th:href="@{/home}">Home</a>
+
+<a th:href="@{/student/project/search}">Project Search</a>
+</body>
+</html>

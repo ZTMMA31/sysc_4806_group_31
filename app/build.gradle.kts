@@ -40,6 +40,9 @@ dependencies {
     implementation(libs.spring.boot.starter.thymeleaf)
     implementation(libs.spring.boot.starter.webmvc)
 
+    // Validation for MVC and APIs
+    implementation(libs.spring.boot.starter.validation)
+
     // Security with Spring
     implementation(libs.spring.boot.starter.security)
     implementation(libs.thymeleaf.extras.springsecurity6)

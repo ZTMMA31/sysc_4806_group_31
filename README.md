@@ -52,6 +52,9 @@ The project uses Gradle with the Kotlin DSL for build configuration and dependen
 | `settings.gradle.kts` | Defines the Gradle project structure and included modules. |
 | `app/build.gradle.kts` | Configures application dependencies, plugins, and build tasks. |
 | `gradle/libs.versions.toml` | Centralizes dependency and plugin version declarations. |
+The database schema is shown in `architecture/database_schema.png`. Hibernate with the community SQLiteDialect is used to generate the schema for SQLite.
+This combination can result in oddities like foreign key relationships not being defined properly in the dumped schema.
+However, this doesn't negatively effect on the application, because the application uses JPA/Hibernate for all database interactions.
 
 ## Releases / Milestones
 
