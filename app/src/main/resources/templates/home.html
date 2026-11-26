@@ -30,6 +30,14 @@
         <h2>
             Student Dashboard
         </h2>
+
+        <a th:href="@{/student/project}">
+            <button>My Project</button>
+        </a>
+
+        <a th:href="@{/student/search}">
+            <button>Project Search</button>
+        </a>
     </div>
     <br>
     <form th:action="@{/logout}" method="post">
