@@ -19,6 +19,9 @@ sqlite-jdbc = { module = "org.xerial:sqlite-jdbc" }
 spring-boot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf" }
 spring-boot-starter-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
 
+# Validation for MVC and APIS
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+
 # Security
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
 thymeleaf-extras-springsecurity6 = { module = "org.thymeleaf.extras:thymeleaf-extras-springsecurity6" }
