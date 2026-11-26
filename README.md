@@ -26,10 +26,14 @@ The system is deployed automatically from the main branch to Azure with the `.gi
 - Ensure the EditorConfig plugin is enabled
 
 ## Project Structure
+### Database Schema
+![architecture/database_schema.png](architecture/database_schema.png)
 
 The database schema is shown in `architecture/database_schema.png`. Hibernate with the community SQLiteDialect is used to generate the schema for SQLite.
 This combination can result in oddities like foreign key relationships not being defined properly in the dumped schema.
 However, this doesn't negatively effect on the application, because the application uses JPA/Hibernate for all database interactions.
+
+### Code Structure
 ```
 ZTMMA31
 ├─ .github
@@ -111,6 +115,27 @@ ZTMMA31
 └─ settings.gradle.kts
 ```
 ## Releases / Milestones
+### Milestone 1
+[https://github.com/ZTMMA31/sysc_4806_group_31/releases/tag/m1](https://github.com/ZTMMA31/sysc_4806_group_31/releases/tag/m1)
+### Milestone 2
+
+## Next Sprint
+
+The goal for the next sprint will be to complete the project. The items on the to-do list are the following:
+
+- Implementation of websockets
+- Students submit their reports online by a deadline
+- The 4th year project coordinator can search for students without a project and send them a reminder.
+- Report deadline specified by the 4th year project coordinator and enforced by the system.
+- For the oral presentations, profs and students enter their availability.
+- The 4th year project coordinator can allocate the oral presentations to rooms based on availability. This can be done manually or using a very simple “best effort” algorithm.
+- Complete basic professor actions: **[Issue #57](https://github.com/ZTMMA31/sysc_4806_group_31/issues/57)**
+- Complete basic student actions: **[Issue #54](https://github.com/ZTMMA31/sysc_4806_group_31/issues/54)**
+- Professors can define project restrictions (program capacity): **[Issue #59](https://github.com/ZTMMA31/sysc_4806_group_31/issues/59)**
+- Professors can archive/unarchive projects: **[Issue #58](https://github.com/ZTMMA31/sysc_4806_group_31/issues/58)**
+- Clean up the backend code: some cleanup needs to be done to tests and the code structure to ensure consistency.
+- Add role ENUM for Student and Professor: **[Issue #66](https://github.com/ZTMMA31/sysc_4806_group_31/issues/66)**
+- Complete and clean up the frontend: **[Issue #62](https://github.com/ZTMMA31/sysc_4806_group_31/issues/62)**
 
 ## Authors
 - Amber Skinner
