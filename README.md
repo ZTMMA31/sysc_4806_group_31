@@ -26,6 +26,10 @@ The system is deployed automatically from the main branch to Azure with the `.gi
 - Ensure the EditorConfig plugin is enabled
 
 ## Project Structure
+
+The database schema is shown in `architecture/database_schema.png`. Hibernate with the community SQLiteDialect is used to generate the schema for SQLite.
+This combination can result in oddities like foreign key relationships not being defined properly in the dumped schema.
+However, this doesn't negatively effect on the application, because the application uses JPA/Hibernate for all database interactions.
 ```
 ZTMMA31
 ├─ .github
