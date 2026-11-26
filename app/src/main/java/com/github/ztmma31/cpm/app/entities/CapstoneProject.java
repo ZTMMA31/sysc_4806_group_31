@@ -69,7 +69,7 @@ public class CapstoneProject {
     }
 
     public void removeStudent(Student student)
-    {
+    {   
         students.remove(student);
     }
 }

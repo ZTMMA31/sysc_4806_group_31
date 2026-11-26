@@ -29,10 +29,22 @@
             <th>
                 Username
             </th>
+            <th>
+                Remove
+            </th>
         </tr>
         <tr th:each="student : ${project.students}">
             <td th:text="${student.id}"></td>
             <td th:text="${student.username}"></td>
+            <td>
+                <form th:action="@{/professor/projects/{projectId}/students/{studentId}/remove(projectId=${project.id}, studentId=${student.id})}"
+                    method="post"
+                    onsubmit="return confirm('Remove this student from the project?');">
+                    <button type="submit">
+                        Remove
+                    </button>
+                </form>
+            </td>
         </tr>
     </table>
     <h2>
@@ -43,10 +55,6 @@
             Edit Project
         </button>
     </a>
-    <br><br>
-    <button>
-        Manage Students
-    </button>
     <br><br>
     <form th:action="@{/professor/projects/{id}/delete(id=${project.id})}"
         method="post"
