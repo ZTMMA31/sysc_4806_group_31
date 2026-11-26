@@ -15,6 +15,7 @@ class CapstoneProjectServiceTest {
 
     private CapstoneProjectRepository projectRepository;
     private ProfessorRepository professorRepository;
+    private StudentRepository studentRepository;
     private CapstoneProjectService service;
 
     private Professor professor;
@@ -27,7 +28,8 @@ class CapstoneProjectServiceTest {
 
         service = new CapstoneProjectService(
             projectRepository,
-            professorRepository
+            professorRepository,
+            studentRepository
         );
 
         professor = mock(Professor.class);
