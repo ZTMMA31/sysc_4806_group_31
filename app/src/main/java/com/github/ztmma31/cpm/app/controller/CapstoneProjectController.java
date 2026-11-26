@@ -131,4 +131,19 @@ public class CapstoneProjectController {
 
         return "redirect:/professor/projects";
     }
+
+    @PostMapping ("/{projectId}/students/{studentId}/remove")
+    public String removeStudentFromProject(@PathVariable Long projectId, @PathVariable int studentId, Principal principal) {
+        logger.info("CapstoneProjectController POST on /professor/projects/{}/students/{}/remove", projectId, studentId);
+        logger.info("    Project ID: {}", projectId);
+        logger.info("    Student ID: {}", studentId);
+        logger.info("    Professor: {}", principal.getName());
+
+        projectService.removeStudentFromProject(projectId, studentId, principal.getName());
+
+        logger.info("CapstoneProjectController STATUS student {} removed from project {} for professor {}", studentId, projectId, principal.getName());
+        logger.info("CapstoneProjectController REDIRECT to /professor/projects/{}", projectId);
+
+        return "redirect:/professor/projects/" + projectId;
+    }
 }

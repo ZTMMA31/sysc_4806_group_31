@@ -11,12 +11,12 @@ public class CapstoneProjectService {
 
     private final CapstoneProjectRepository projectRepository;
     private final ProfessorRepository professorRepository;
+    private final StudentRepository studentRepository;
 
-    public CapstoneProjectService(
-        CapstoneProjectRepository projectRepository,
-        ProfessorRepository professorRepository) {
+    public CapstoneProjectService(CapstoneProjectRepository projectRepository, ProfessorRepository professorRepository, StudentRepository studentRepository) {
         this.projectRepository = projectRepository;
         this.professorRepository = professorRepository;
+        this.studentRepository = studentRepository;
     }
 
 
@@ -86,5 +86,19 @@ public class CapstoneProjectService {
         projectRepository.delete(project);
     }
 
+    public void removeStudentFromProject(Long projectId, int studentId, String professorUsername) {
+        CapstoneProject project = getProject(projectId, professorUsername);
 
+        Student student = studentRepository.findById(studentId);
+        
+        if (student == null) {
+            throw new NoSuchElementException("Student not found");
+        }
+            
+        project.getStudents().remove(student);
+        projectRepository.save(project);
+
+        student.removeProject();
+        studentRepository.save(student);
+    }
 }
