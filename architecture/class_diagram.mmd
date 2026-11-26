@@ -1,19 +1,30 @@
+---
+config:
+  layout: elk
+---
+
 classDiagram
+    direction TB
+
     class Professor {
         -Long id
         -String username
         -String password
-        -List~CapstoneProject~ projects
-        +addProject(CapstoneProject)
+        -Set~CapstoneProject~ projects
     }
 
     class CapstoneProject {
         -Long id
         -String title
         -String description
-        -List~Program~ restrictions
-        -List~Student~ students
+        -Set~Program~ restrictions
+        -Set~Student~ students
+        -Set~Student~ appliedStudents
         -Professor professor
+        +addRestrictions(Set~Program~)
+        +removeRestrictions(List~Program~)
+        +addStudent(Student)
+        +removeStudent(Student)
     }
 
     class Student {
@@ -21,6 +32,7 @@ classDiagram
         -String username
         -String password
         -CapstoneProject project
+        -CapstoneProject appliedProject
     }
 
     class Program
@@ -37,47 +49,147 @@ classDiagram
         +findByUsername(String) Optional~Professor~
     }
 
+    class CapstoneProjectRepository {
+        <<interface>>
+        +findByProfessor(Professor) List~CapstoneProject~
+    }
+
+    class CrudRepository {
+        <<interface>>
+    }
+
+    class CapstoneProjectService {
+        -CapstoneProjectRepository projectRepository
+        -ProfessorRepository professorRepository
+        +createProject(String, String, String) CapstoneProject
+        +getProjectsByProfessor(String) List~CapstoneProject~
+        +getProject(Long, String) CapstoneProject
+        +updateProject(Long, String, String, String) CapstoneProject
+        +deleteProject(Long, String) void
+    }
+
+    class CapstoneProjectController {
+        -CapstoneProjectService projectService
+        +getProjects(Principal, Model) String
+        +createProjectForm() String
+        +createProject(String, String, Principal) String
+        +getProject(Long, Principal, Model) String
+        +editProjectForm(Long, Principal, Model) String
+        +updateProject(Long, String, String, Principal) String
+        +deleteProject(Long, Principal) String
+    }
+
     class RegistrationForm {
         -String username
         -String password
         -boolean professor
     }
 
-    class RegistrationController
-    class LoginController
-    class HomeController
-    class AppUserDetailsService
-    class DataSeeder
-    class SecurityConfig
-    class CpmApplication
+    class RegistrationController {
+        -StudentRepository studentRepository
+        -ProfessorRepository professorRepository
+        -PasswordEncoder passwordEncoder
+        +showRegistration(Model) String
+        +processRegistration(RegistrationForm) String
+    }
 
-    class CrudRepository {
-        <<interface>>
+    class LoginController {
+        +login() String
+    }
+
+    class HomeController {
+        +home(Model, Authentication) String
+    }
+
+    class AppUserDetailsService {
+        -StudentRepository students
+        -ProfessorRepository professors
+        +loadUserByUsername(String) UserDetails
+        -build(String, String, String) UserDetails
+    }
+
+    class CurrentUserService {
+        -StudentRepository students
+        -ProfessorRepository professors
+        +findStudent(Authentication) Optional~Student~
+        +findProfessor(Authentication) Optional~Professor~
+        +requireStudent(Authentication) Student
+        +requireProfessor(Authentication) Professor
+        -isLoggedInWithAuthority(Authentication, String) boolean
     }
 
     class UserDetailsService {
         <<interface>>
     }
 
-    Professor "1" --> "0..*" CapstoneProject : projects / professor
-    CapstoneProject "1" --> "0..*" Student : students
-    Student "0..*" --> "0..1" CapstoneProject : project (ManyToOne)
+    class PasswordEncoder {
+        <<interface>>
+    }
+
+    class DataSeeder {
+        ~seedUsers(StudentRepository, ProfessorRepository, PasswordEncoder) CommandLineRunner
+    }
+
+    class SecurityConfig {
+        ~filterChain(HttpSecurity) SecurityFilterChain
+        ~passwordEncoder() PasswordEncoder
+    }
+
+    class CpmApplication
+
+%% Entity relationships
+
+    Professor "1" -- "0..*" CapstoneProject : manages
+    CapstoneProject "0..1" -- "0..*" Student : registered students
+    CapstoneProject "0..1" -- "0..*" Student : applied students
     CapstoneProject ..> Program : transient restrictions
 
-    StudentRepository ..|> CrudRepository
-    ProfessorRepository ..|> CrudRepository
+%% Repository inheritance
+
+    StudentRepository --|> CrudRepository
+    ProfessorRepository --|> CrudRepository
+    CapstoneProjectRepository --|> CrudRepository
+
+%% Repository dependencies
+
     StudentRepository ..> Student
     ProfessorRepository ..> Professor
+    CapstoneProjectRepository ..> CapstoneProject
+    CapstoneProjectRepository ..> Professor
+
+%% Project management
+
+    CapstoneProjectController --> CapstoneProjectService
+    CapstoneProjectService --> CapstoneProjectRepository
+    CapstoneProjectService --> ProfessorRepository
+    CapstoneProjectService ..> CapstoneProject
+    CapstoneProjectService ..> Professor
+
+%% Authentication
 
     AppUserDetailsService ..|> UserDetailsService
-    AppUserDetailsService ..> StudentRepository
-    AppUserDetailsService ..> ProfessorRepository
+    AppUserDetailsService --> StudentRepository
+    AppUserDetailsService --> ProfessorRepository
+
+    CurrentUserService --> StudentRepository
+    CurrentUserService --> ProfessorRepository
+    CurrentUserService ..> Student
+    CurrentUserService ..> Professor
+
+%% Registration
 
     RegistrationController ..> RegistrationForm
-    RegistrationController ..> StudentRepository
-    RegistrationController ..> ProfessorRepository
+    RegistrationController --> StudentRepository
+    RegistrationController --> ProfessorRepository
+    RegistrationController --> PasswordEncoder
     RegistrationController ..> Student
     RegistrationController ..> Professor
 
+%% Configuration
+
+    SecurityConfig ..> PasswordEncoder : creates
     DataSeeder ..> StudentRepository
     DataSeeder ..> ProfessorRepository
+    DataSeeder ..> PasswordEncoder
+    DataSeeder ..> Student
+    DataSeeder ..> Professor
