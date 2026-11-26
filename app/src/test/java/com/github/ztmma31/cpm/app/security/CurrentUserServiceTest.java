@@ -3,6 +3,7 @@ package com.github.ztmma31.cpm.app.security;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
@@ -21,6 +22,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class CurrentUserServiceTest {
 
+    private static final String STUDENT = "ROLE_STUDENT";
+    private static final String PROFESSOR = "ROLE_PROFESSOR";
+
     private final StudentRepository students = mock(StudentRepository.class);
     private final ProfessorRepository professors = mock(ProfessorRepository.class);
     private final CurrentUserService service = new CurrentUserService(students, professors);
@@ -30,10 +34,21 @@ public class CurrentUserServiceTest {
             username, null, List.of(new SimpleGrantedAuthority(role)));
     }
 
+    private static Student student(String username) {
+        Student s = new Student();
+        s.setUsername(username);
+        return s;
+    }
+
+    private static Professor professor(String username) {
+        Professor p = new Professor();
+        p.setUsername(username);
+        return p;
+    }
+
     @Test
     void studentAuthenticationResolvesToStudent() {
-        Student s = new Student();
-        s.setUsername("Max Bui");
+        Student s = student("Max Bui");
         when(students.findByUsername("Max Bui")).thenReturn(Optional.of(s));
 
         assertThat(service.findStudent(login("Max Bui", "ROLE_STUDENT"))).hasValue(s);
@@ -42,8 +57,7 @@ public class CurrentUserServiceTest {
 
     @Test
     void professorAuthenticationResolvesToProfessor() {
-        Professor p = new Professor();
-        p.setUsername("Abdullah Kadri");
+        Professor p = professor("Abdullah Kadri");
         when(professors.findByUsername("Abdullah Kadri")).thenReturn(Optional.of(p));
 
         assertThat(service.findProfessor(login("Abdullah Kadri", "ROLE_PROFESSOR"))).hasValue(p);
@@ -51,11 +65,43 @@ public class CurrentUserServiceTest {
     }
 
     @Test
-    void professorIsNotResolvedAsStudentEvenWithSameUsername() {
-        Authentication prof = login("Babak", "ROLE_PROFESSOR");
+    void professorCannotBeResolvedAsStudent() {
+        Authentication babak = login("Babak", PROFESSOR);
 
-        assertThat(service.findProfessor(prof)).isEmpty();
+        assertThat(service.findStudent(babak)).isEmpty();
+        assertThrows(AccessDeniedException.class, () -> service.requireStudent(babak));
         verifyNoInteractions(students);
+    }
+
+    @Test
+    void studentCannotBeResolvedAsProfessor() {
+        Authentication zaneywaney = login("Zane", STUDENT);
+
+        assertThat(service.findProfessor(zaneywaney)).isEmpty();
+        assertThrows(AccessDeniedException.class, () -> service.requireProfessor(zaneywaney));
+        verifyNoInteractions(professors);
+    }
+
+    @Test
+    void roleDecidesWhichTableIsUsedWhenBothHaveTheSameUsername() {
+        Student s = student("Teddy");
+        Professor p = professor("Teddy");
+        when(students.findByUsername("Teddy")).thenReturn(Optional.of(s));
+        when(professors.findByUsername("Teddy")).thenReturn(Optional.of(p));
+
+        assertThat(service.findProfessor(login("Teddy", PROFESSOR))).hasValue(p);
+        assertThat(service.findStudent(login("Teddy", PROFESSOR))).isEmpty();
+        assertThat(service.findStudent(login("Teddy", STUDENT))).hasValue(s);
+        assertThat(service.findProfessor(login("Teddy", STUDENT))).isEmpty();;
+    }
+
+    @Test
+    void requireThrowsWhenTheAccountIsMissing() {
+        when(students.findByUsername("ghost")).thenReturn(Optional.empty());
+        when(professors.findByUsername("ghost")).thenReturn(Optional.empty());
+
+        assertThrows(AccessDeniedException.class, () -> service.requireStudent(login("ghost", STUDENT)));
+        assertThrows(AccessDeniedException.class, () -> service.requireProfessor(login("ghost", PROFESSOR)));
     }
 
     @Test
@@ -71,13 +117,6 @@ public class CurrentUserServiceTest {
 
         assertThat(service.findStudent(anon)).isEmpty();
         assertThat(service.findProfessor(anon)).isEmpty();
-    }
-
-    @Test
-    void requireThrowsWhenAccountIsMissingOrWrongRole() {
-        when(students.findByUsername("ghost")).thenReturn(Optional.empty());
-
-        assertThrows(AccessDeniedException.class, () -> service.requireStudent(login("ghost", "ROLE_STUDENT")));
-        assertThrows(AccessDeniedException.class, () -> service.requireProfessor(login("ghost", "ROLE_PROFESSOR")));
+        verifyNoInteractions(students, professors);
     }
 }
