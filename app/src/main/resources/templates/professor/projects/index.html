@@ -22,7 +22,7 @@
         You have no projects.
     </p>
     <br><br>
-    <table>
+    <table th:if="${#lists.isEmpty(projects)} == false">
         <thead>
             <tr>
                 <th>
