@@ -11,11 +11,9 @@ class ProfessorTest {
     @Test
     void storesProfessorDetailsAndManagedProjects() {
         CapstoneProject project = new CapstoneProject();
-        Professor professor = new Professor();
+        Professor professor = Professor.of("professor1", "secret");
 
         professor.setId(1L);
-        professor.setUsername("professor1");
-        professor.setPassword("secret");
         professor.setProjects(Set.of(project));
 
         assertThat(professor.getId()).isEqualTo(1L);
@@ -26,10 +24,8 @@ class ProfessorTest {
 
     @Test
     void toStringIncludesProfessorDetailsButExcludesPassword() {
-        Professor professor = new Professor();
+        Professor professor = Professor.of("professor1", "secret");
         professor.setId(1L);
-        professor.setUsername("professor1");
-        professor.setPassword("secret");
 
         assertThat(professor.toString())
             .isEqualTo("Professor(id=1, username=professor1, projects=null)");

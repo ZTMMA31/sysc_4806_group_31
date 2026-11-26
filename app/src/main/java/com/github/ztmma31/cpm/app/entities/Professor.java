@@ -29,4 +29,11 @@ public class Professor {
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
     private Set<CapstoneProject> projects;
+
+    public static Professor of(String username, String password) {
+        Professor professor = new Professor();
+        professor.setUsername(username);
+        professor.setPassword(password);
+        return professor;
+    }
 }
