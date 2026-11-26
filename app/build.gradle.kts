@@ -13,8 +13,11 @@ plugins {
     application
 
     // Spring plugins
-    id("org.springframework.boot") version "4.1.2"
-    id("io.spring.dependency-management") version "1.1.7"
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+
+    // Reduce boilerplate: https://projectlombok.org/setup/gradle
+    id("io.freefair.lombok") version "9.8.3"
 }
 
 group = "com.github.ztmma31"
@@ -25,31 +28,30 @@ repositories {
     mavenCentral()
 }
 
-// TODO: can the spring dependencies be moved to libs.versions.toml?
 dependencies {
-    // Compile/runtime dependencies
+    // COMPILE/RUNTIME DEPENDENCIES
 
     // Database stuff
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.hibernate.orm:hibernate-community-dialects") // Needed for Hibernate to support SQLite
-    runtimeOnly("org.xerial:sqlite-jdbc")
+    implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.hibernate.community.dialects) // Needed for Hibernate to support SQLite
+    runtimeOnly(libs.sqlite.jdbc)
 
     // Web and UI
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
+    implementation(libs.spring.boot.starter.thymeleaf)
+    implementation(libs.spring.boot.starter.webmvc)
 
     // Security with Spring
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.thymeleaf.extras.springsecurity6)
 
     // Test dependencies
     testImplementation(libs.truth)
 
     // Spring test dependencies
-    testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-security-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-thymeleaf-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+    testImplementation(libs.spring.boot.starter.data.jpa.test)
+    testImplementation(libs.spring.boot.starter.security.test)
+    testImplementation(libs.spring.boot.starter.thymeleaf.test)
+    testImplementation(libs.spring.boot.starter.webmvc.test)
 }
 
 testing {
@@ -57,7 +59,7 @@ testing {
         // Configure the built-in test suite
         val test = named<JvmTestSuite>("test") {
             // Use JUnit Jupiter test framework
-            useJUnitJupiter("6.0.1")
+            useJUnitJupiter(libs.versions.junit.jupiter)
         }
     }
 }

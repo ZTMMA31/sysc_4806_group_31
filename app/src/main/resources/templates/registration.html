@@ -5,50 +5,54 @@
     <title>Register - CPM</title>
 </head>
 <body>
+    <h1>
+        Create an Account
+    </h1>
+    <form th:action="@{/register}"
+        th:object="${registrationForm}"
+        method="post">
+        <!--/* No support for names yet
+        <div>
+            <label for="name">Full Name</label>
+            <input type="text"
+                id="name"
+                th:field="*{name}"
+                required>
+        </div>
+        */-->
+        <div>
+            <label for="username">
+                Username
+            </label>
+            <input type="text"
+                id="username"
+                th:field="*{username}"
+                required>
+        </div>
+        <br>
+        <div>
+            <label for="password">
+                Password
+            </label>
+            <input type="password"
+                id="password"
+                th:field="*{password}"
+                required>
+        </div>
+        <br>
+        <div>
+            <label for="professor">
+                Professor
+            </label>
+            <input type="checkbox"
+                id="professor"
+                th:field="*{professor}"/>
 
-<h1>Create an Account</h1>
-
-<form th:action="@{/register}"
-      th:object="${registrationForm}"
-      method="post">
-
-    <!--/* No support for names yet
-    <div>
-        <label for="name">Full Name</label>
-        <input type="text"
-               id="name"
-               th:field="*{name}"
-               required>
-    </div>
-    */-->
-
-    <div>
-        <label for="username">Username</label>
-        <input type="text"
-               id="username"
-               th:field="*{username}"
-               required>
-    </div>
-
-    <div>
-        <label for="password">Password</label>
-        <input type="password"
-               id="password"
-               th:field="*{password}"
-               required>
-    </div>
-
-    <div>
-        <label for="professor">Professor</label>
-        <input type="checkbox"
-               id="professor"
-               th:field="*{professor}"/>
-
-    </div>
-
-    <button type="submit">Register</button>
-
-</form>
-
+        </div>
+        <br>
+        <button type="submit">
+            Register
+        </button>
+    </form>
 </body>
 </html>
