@@ -3,7 +3,6 @@ package com.github.ztmma31.cpm.app.security;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
@@ -92,7 +91,7 @@ public class CurrentUserServiceTest {
         assertThat(service.findProfessor(login("Teddy", PROFESSOR))).hasValue(p);
         assertThat(service.findStudent(login("Teddy", PROFESSOR))).isEmpty();
         assertThat(service.findStudent(login("Teddy", STUDENT))).hasValue(s);
-        assertThat(service.findProfessor(login("Teddy", STUDENT))).isEmpty();;
+        assertThat(service.findProfessor(login("Teddy", STUDENT))).isEmpty();
     }
 
     @Test
