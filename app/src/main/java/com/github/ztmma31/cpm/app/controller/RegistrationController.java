@@ -46,7 +46,9 @@ public class RegistrationController {
         String encodedPassword = passwordEncoder.encode(form.getPassword());
 
         System.out.println("RegistrationController POST on /register");
-        System.out.println("Username: " + username);
+        System.out.println("    Username: " + username);
+        System.out.println("    Encoded Password: " + encodedPassword);
+        System.out.println("    Role: " + (form.isProfessor() ? "PROFESSOR" : "STUDENT"));
 
         // FIXME: reject if the username is already registered
         if (form.isProfessor()) {
@@ -62,6 +64,9 @@ public class RegistrationController {
 
             studentRepository.save(student);
         }
+
+        System.out.println("RegistrationController STATUS saved new user to database");
+        System.out.println("RegistrationController REDIRECT to /login");
 
         return "redirect:/login";
     }

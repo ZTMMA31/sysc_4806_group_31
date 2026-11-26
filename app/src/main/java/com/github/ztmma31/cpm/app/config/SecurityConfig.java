@@ -16,6 +16,11 @@ public class SecurityConfig {
             authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/register", "/error").permitAll()
                 .anyRequest().authenticated())
+            .exceptionHandling(exception -> exception.authenticationEntryPoint((request, response, authException) -> {
+                System.out.println("SecurityConfig STATUS unauthorized access attempt to " + request.getRequestURI());
+                System.out.println("SecurityConfig REDIRECT to /login");
+                response.sendRedirect("/login");
+            }))
             .formLogin(form -> form
                 .loginPage("/login")
                 .defaultSuccessUrl("/home", true)

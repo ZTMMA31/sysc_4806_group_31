@@ -15,15 +15,12 @@ public class HomeController {
     ) {
         System.out.println("HomeController GET on /, /home");
 
-        if (auth == null || !auth.isAuthenticated()) {
-            System.out.println("HomeController REDIRECT to /login");
-            
-            return "redirect:/login";
-        }
-
         String role = auth.getAuthorities().iterator().next().getAuthority().replace("ROLE_", "");
         model.addAttribute("name", auth.getName());
         model.addAttribute("role", role);
+
+        System.out.println("    Username: " + auth.getName());
+        System.out.println("    Role: " + role);
 
         return "home";
     }
