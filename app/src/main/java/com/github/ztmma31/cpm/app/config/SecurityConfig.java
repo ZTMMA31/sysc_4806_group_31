@@ -19,6 +19,7 @@ public class SecurityConfig {
             authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/register", "/error").permitAll()
                 .requestMatchers("/professor/**").hasRole("PROF")
+                .requestMatchers("/student/**").hasRole("STUDENT")
                 .anyRequest().authenticated())
             .exceptionHandling(exception -> exception.authenticationEntryPoint((request, response, authException) -> {
                 logger.warn("SecurityConfig STATUS unauthorized access attempt to {}", request.getRequestURI());
